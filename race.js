@@ -25,15 +25,16 @@ class MotoGPBike extends Motorbike {
   }
 
   turboBoost() {
-    this.speed += 20;
+    this.speed += 5;
   }
 }
 
 class RacingTeam {
-  constructor(name) {
+  constructor(name, color) {
     this.name = name;
     this.bikes = [];
     this.riders = [];
+    this.color = color;
   }
 
   addBike(bike) {
@@ -74,14 +75,15 @@ class MotoGPRider extends Rider {
   }
 }
 
-const yamahaTeam = new RacingTeam("Yamaha");
+const yamahaTeam = new RacingTeam("Yamaha", "blue");
+const ducatiTeam = new RacingTeam("Ducati", "red");
 
 const bike1 = new MotoGPBike("Yamaha", "YZR-M1");
 const bike2 = new MotoGPBike("Yamaha", "YZR-M1");
 const bike3 = new MotoGPBike("Yamaha", "YZR-M1");
-const bike4 = new MotoGPBike("Yamaha", "YZR-M1");
-const bike5 = new MotoGPBike("Yamaha", "YZR-M1");
-const bike6 = new MotoGPBike("Yamaha", "YZR-M1");
+const bike4 = new MotoGPBike("Ducati", "V4 R");
+const bike5 = new MotoGPBike("Ducati", "V4 R");
+const bike6 = new MotoGPBike("Ducati", "V4 R");
 
 const rider1 = new MotoGPRider("Valentino Rossi", "Pro", "Knee Drag");
 const rider2 = new MotoGPRider("Maverick Viñales", "Pro", "Elbow Drag");
@@ -93,15 +95,18 @@ const rider6 = new MotoGPRider("Pol Espargaro", "Pro", "Slipstreaming");
 yamahaTeam.addBike(bike1);
 yamahaTeam.addBike(bike2);
 yamahaTeam.addBike(bike3);
-yamahaTeam.addBike(bike4);
-yamahaTeam.addBike(bike5);
-yamahaTeam.addBike(bike6);
 yamahaTeam.addRider(rider1);
 yamahaTeam.addRider(rider2);
 yamahaTeam.addRider(rider3);
-yamahaTeam.addRider(rider4);
-yamahaTeam.addRider(rider5);
-yamahaTeam.addRider(rider6);
+
+ducatiTeam.addBike(bike4);
+ducatiTeam.addBike(bike5);
+ducatiTeam.addBike(bike6);
+ducatiTeam.addRider(rider4);
+ducatiTeam.addRider(rider5);
+ducatiTeam.addRider(rider6);
+
+const championship = [yamahaTeam, ducatiTeam];
 
 /**
  * Draw logic
@@ -111,9 +116,9 @@ document
   .getElementById("startRace")
   .addEventListener("click", () => startRace());
 
-function drawBike(ctx, x, y) {
+function drawBike(color, x, y) {
   // Sample code to draw a simple bike shape, you can replace this with an image or more complex drawing
-  ctx.fillStyle = "blue";
+  ctx.fillStyle = color || "#000000";
   ctx.fillRect(x, y, 50, 25);
 }
 
@@ -130,19 +135,25 @@ function startRace() {
     // Draw the bikes again at their new positions
     let yPos = 50;
 
-    yamahaTeam.bikes.forEach((bike) => {
-      drawBike(ctx, bike.positionX, yPos);
-      yPos += 25;
-    });
+    championship.forEach((team) => {
+      console.log(`--- Race for ${team.name} ---`);
+      team.race();
+      console.log(`\n`);
 
-    // Update the bike positions (you could use actual speed metrics here)
-    yamahaTeam.bikes.forEach((bike) => {
-      bike.positionX += bike.speed;
-    });
+      // Update the bike positions (you could use actual speed metrics here)
+      team.bikes.forEach((bike) => {
+        bike.positionX += bike.speed;
 
-    // Stop the race when a bike reaches the end
-    if (bike1.positionX >= canvas.width || bike2.positionX >= canvas.width) {
-      clearInterval(raceInterval);
-    }
+        // Stop the race when a bike reaches the end
+        if (bike.positionX >= canvas.width) {
+          clearInterval(raceInterval);
+        }
+      });
+
+      team.bikes.forEach((bike) => {
+        drawBike(team.color, bike.positionX, yPos);
+        yPos += 25;
+      });
+    });
   }, 100);
 }

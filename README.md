@@ -4,64 +4,52 @@
 
 1. Defining a Motorbike Class
 
-   ```javascript
-   class Motorbike {
-     constructor(brand, model) {
-       this.brand = brand;
-       this.model = model;
-       this.speed = 0;
-     }
-   }
-   ```
+```javascript
+class Motorbike {
+  constructor(brand, model) {
+    this.brand = brand;
+    this.model = model;
+    this.speed = 0;
+  }
+}
+```
 
 2. Add methods to the Motorbike class to perform actions, such as accelerate and brake.
 
-   ```javascript
-    accelerate() {
-        this.speed += 5;
-    }
+```javascript
+accelerate() {
+    this.speed += 5;
+}
 
-    brake() {
-        this.speed -= 5;
-    }
-   ```
+brake() {
+    this.speed -= 5;
+}
+```
 
 3. Instantiating Objects
 
-   ```javascript
-   const bike1 = new Motorbike("Honda", "CBR");
-   const bike2 = new Motorbike("Yamaha", "R1");
+```javascript
+const bike1 = new Motorbike("Honda", "CBR");
+const bike2 = new Motorbike("Yamaha", "R1");
 
-   bike1.accelerate();
-   bike2.brake();
-   ```
+bike1.accelerate();
+bike2.brake();
+```
 
 4. Inheritance
 
-   ```javascript
-   class RacingBike extends Motorbike {
-     constructor(brand, model) {
-       super(brand, model);
-       this.type = "Racing";
-     }
+```javascript
+class RacingBike extends Motorbike {
+  constructor(brand, model) {
+    super(brand, model);
+    this.type = "Racing";
+  }
 
-     turboBoost() {
-       this.speed += 20;
-     }
-   }
-   ```
-
-## Exercises
-
-1. Create a CruiserBike class that inherits from Motorbike and has a method called cruise() which sets the speed to a constant 50.
-
-2. Create a displayDetails() method in the Motorbike class that prints out the details of the bike, including its current speed. Then, call this method on instances of Motorbike, RacingBike, and CruiserBike.
-
-3. Add a static numberOfBikes property to the Motorbike class to keep track of how many bikes have been created. Update this property within the constructor.
-
-4. Create an array of multiple Motorbike objects and use a loop to accelerate each bike three times, displaying their details afterward.
-
-# Introduction to the "MotoGP World"
+  turboBoost() {
+    this.speed += 20;
+  }
+}
+```
 
 Defining a Motorbike Class
 
@@ -109,7 +97,7 @@ class MotoGPBike extends Motorbike {
 }
 ```
 
-## Exercises:
+## Exercises
 
 1. Create a RacingTeam object and add multiple MotoGPBike and Rider objects to it. (Bonus: pick real MotoGP Teams and Riders);
 
@@ -123,3 +111,7 @@ class MotoGPBike extends Motorbike {
 
 Add statistics to riders and bikes and then
 simulate races to see who wins based on stats.
+
+```javascript
+console.log(`${bike.brand} now at speed ${bike.speed}`);
+```

@@ -1,6 +1,3 @@
-const canvas = document.getElementById("raceCanvas");
-const ctx = canvas.getContext("2d");
-
 class Motorbike {
   constructor(brand, model) {
     this.brand = brand;
@@ -111,6 +108,8 @@ const championship = [yamahaTeam, ducatiTeam];
 /**
  * Draw logic
  */
+const canvas = document.getElementById("raceCanvas");
+const ctx = canvas.getContext("2d");
 
 document
   .getElementById("startRace")
